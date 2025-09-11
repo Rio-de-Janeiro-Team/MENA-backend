@@ -19,14 +19,24 @@ class ContactService(
         contactRequests: List<ContactRequest>
     ): BaseResponse<Unit> {
 
-        val contactsToSave = contactRequests.map { request ->
-            val existingContact = contactRepository.findByOwnerUserAndPhoneNumber(ownerUser, request.phoneNumber)
-            existingContact?.copy(name = request.name, phoneNumber = request.phoneNumber) ?: request.toContact(ownerUser)
-        }
-
-        contactRepository.saveAll(contactsToSave)
-
-        return BaseResponse(status = 200, success = true, message = "Contacts synced successfully")
+        return contactRequests
+            .map { it.phoneNumber }
+            .let { phoneNumbers ->
+                contactRepository.findAllByOwnerUserAndPhoneNumberIn(ownerUser, phoneNumbers)
+                    .associateBy { it.phoneNumber }
+            }
+            .let { existingContactsMap ->
+                contactRequests.map { request ->
+                    existingContactsMap[request.phoneNumber]?.copy(name = request.name)
+                        ?: request.toContact(ownerUser)
+                }
+            }
+            .also { contactsToSave ->
+                contactRepository.saveAll(contactsToSave)
+            }
+            .let {
+                BaseResponse(status = 200, success = true, message = "Contacts synced successfully")
+            }
     }
 
     fun getCurrentUser(): User { // todo: delete it when identity feature team provide another one
