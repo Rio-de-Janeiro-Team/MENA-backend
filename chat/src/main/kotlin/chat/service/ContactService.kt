@@ -18,18 +18,15 @@ class ContactService(
         ownerUser: User,
         contactRequests: List<ContactRequest>
     ): BaseResponse<Unit> {
-        return try {
-            val contactsToSave = contactRequests.map { request ->
-                val existingContact = contactRepository.findByOwnerUserAndPhoneNumber(ownerUser, request.phoneNumber)
-                existingContact?.copy(name = request.name, phoneNumber = request.phoneNumber) ?: request.toContact(ownerUser)
-            }
 
-            contactRepository.saveAll(contactsToSave)
-
-            BaseResponse(status = 200, success = true, message = "Contacts synced successfully")
-        } catch (exception: Exception) {
-            BaseResponse(status = 500, success = false, message = "Failed to sync contacts: ${exception.message}")
+        val contactsToSave = contactRequests.map { request ->
+            val existingContact = contactRepository.findByOwnerUserAndPhoneNumber(ownerUser, request.phoneNumber)
+            existingContact?.copy(name = request.name, phoneNumber = request.phoneNumber) ?: request.toContact(ownerUser)
         }
+
+        contactRepository.saveAll(contactsToSave)
+
+        return BaseResponse(status = 200, success = true, message = "Contacts synced successfully")
     }
 
     fun getCurrentUser(): User { // todo: delete it when identity feature team provide another one
@@ -40,7 +37,6 @@ class ContactService(
                 id = userId,
                 phoneNumber = "0598202206",
                 password = "bilal",
-                imageUrl = "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.workitdaily.com%2Fpersonal-branding-statement&psig=AOvVaw2fUXAADnAHQ_dJ5ofTc26Q&ust=1757664600168000&source=images&cd=vfe&opi=89978449&ved=0CBUQjRxqFwoTCIDGloSh0I8DFQAAAAAdAAAAABAE"
             )
             userRepository.save(testUser)
         }
