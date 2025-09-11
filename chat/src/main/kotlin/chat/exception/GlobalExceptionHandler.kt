@@ -6,7 +6,7 @@ import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.ExceptionHandler
 import org.springframework.web.bind.annotation.RestControllerAdvice
 
-@RestControllerAdvice
+@RestControllerAdvice(basePackages = ["net.thechance.chat"])
 class GlobalExceptionHandler {
     @ExceptionHandler(Exception::class)
     fun handleAllExceptions(exception: Exception): ResponseEntity<BaseResponse<Any>> {
