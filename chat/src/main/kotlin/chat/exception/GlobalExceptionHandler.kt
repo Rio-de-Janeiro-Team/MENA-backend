@@ -1,4 +1,4 @@
-package chat.exception
+package net.thechance.chat.exception
 
 import chat.dto.BaseResponse
 import org.springframework.http.HttpStatus
