@@ -15,30 +15,25 @@ class ContactService(
     private val userRepository: UserRepository,
     private val contactRepository: ContactRepository,
 ) {
-    fun syncContacts(
-        ownerUser: User,
-        contactRequests: List<ContactRequest>
-    ): BaseResponse<Unit> {
+    fun syncContacts(ownerUser: User, contactRequests: List<ContactRequest>): BaseResponse<Unit> {
+        val requestedPhoneNumbers = contactRequests.map(ContactRequest::phoneNumber)
 
-        return contactRequests
-            .map { it.phoneNumber }
-            .let { phoneNumbers ->
-                contactRepository.findAllByOwnerUserAndPhoneNumberIn(ownerUser, phoneNumbers)
-                    .associateBy { it.phoneNumber }
-            }
-            .let { existingContactsMap ->
-                contactRequests.map { request ->
-                    existingContactsMap[request.phoneNumber]?.copy(name = request.name)
-                        ?: request.toContact(ownerUser)
-                }
-            }
-            .also { contactsToSave ->
-                contactRepository.saveAll(contactsToSave)
-            }
-            .let {
-                BaseResponse(status = HttpStatus.OK.value(), success = true, message = "Contacts synced successfully")
-            }
+        val existingContacts = contactRepository
+            .findAllByOwnerUserAndPhoneNumberIn(ownerUser, requestedPhoneNumbers)
+            .associateBy { it.phoneNumber }
+
+        val contactsToSave = contactRequests.map { request ->
+            existingContacts[request.phoneNumber]?.copy(name = request.name) ?: request.toContact(ownerUser)
+        }
+
+        val contactsToDelete = contactRepository.findAllByOwnerUserAndPhoneNumberNotIn(ownerUser, requestedPhoneNumbers)
+
+        contactRepository.deleteAll(contactsToDelete)
+        contactRepository.saveAll(contactsToSave)
+
+        return BaseResponse(status = HttpStatus.OK.value(), success = true, message = "Contacts synced successfully")
     }
+
 
     fun getCurrentUser(): User { // todo: delete it when identity feature team provide another one
         val userId = UUID.fromString("7aa6f694-e5ec-4bca-a243-01cedf7f9ce4")

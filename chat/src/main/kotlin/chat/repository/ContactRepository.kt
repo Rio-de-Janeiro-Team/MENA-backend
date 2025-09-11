@@ -7,4 +7,6 @@ import java.util.UUID
 
 interface ContactRepository : JpaRepository<Contact, UUID> {
     fun findAllByOwnerUserAndPhoneNumberIn(ownerUser: User, phoneNumbers: List<String>): List<Contact>
+
+    fun findAllByOwnerUserAndPhoneNumberNotIn(ownerUser: User, phoneNumbers: Collection<String>): List<Contact>
 }
