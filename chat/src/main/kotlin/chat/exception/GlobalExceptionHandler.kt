@@ -11,7 +11,7 @@ class GlobalExceptionHandler {
     @ExceptionHandler(Exception::class)
     fun handleAllExceptions(exception: Exception): ResponseEntity<BaseResponse<Any>> {
         val response = BaseResponse<Any>(
-            status = 500,
+            status = HttpStatus.INTERNAL_SERVER_ERROR.value(),
             success = false,
             message = "An unexpected error occurred: ${exception.message}"
         )

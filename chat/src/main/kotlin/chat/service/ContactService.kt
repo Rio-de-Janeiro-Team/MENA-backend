@@ -6,6 +6,7 @@ import net.thechance.chat.mapper.toContact
 import net.thechance.chat.repository.ContactRepository
 import net.thechance.identity.entity.User
 import net.thechance.identity.repository.UserRepository
+import org.springframework.http.HttpStatus
 import org.springframework.stereotype.Service
 import java.util.UUID
 
@@ -35,7 +36,7 @@ class ContactService(
                 contactRepository.saveAll(contactsToSave)
             }
             .let {
-                BaseResponse(status = 200, success = true, message = "Contacts synced successfully")
+                BaseResponse(status = HttpStatus.OK.value(), success = true, message = "Contacts synced successfully")
             }
     }
 
