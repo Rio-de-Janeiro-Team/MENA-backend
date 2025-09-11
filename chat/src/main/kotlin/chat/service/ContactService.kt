@@ -7,7 +7,7 @@ import net.thechance.chat.repository.ContactRepository
 import net.thechance.identity.entity.User
 import net.thechance.identity.repository.UserRepository
 import org.springframework.stereotype.Service
-import java.util.*
+import java.util.UUID
 
 @Service
 class ContactService(

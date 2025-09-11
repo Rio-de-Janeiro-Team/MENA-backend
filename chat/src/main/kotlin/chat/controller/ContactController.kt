@@ -3,7 +3,10 @@ package net.thechance.chat.controller
 import chat.dto.BaseResponse
 import chat.dto.ContactRequest
 import net.thechance.chat.service.ContactService
-import org.springframework.web.bind.annotation.*
+import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.RequestBody
 
 @RestController
 @RequestMapping("/contact")
