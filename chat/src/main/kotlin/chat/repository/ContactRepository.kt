@@ -6,5 +6,5 @@ import org.springframework.data.jpa.repository.JpaRepository
 import java.util.UUID
 
 interface ContactRepository : JpaRepository<Contact, UUID> {
-    fun findByOwnerUserAndPhoneNumber(ownerUser: User, phoneNumber: String): Contact?
+    fun findAllByOwnerUserAndPhoneNumberIn(ownerUser: User, phoneNumbers: List<String>): List<Contact>
 }
