@@ -1,4 +1,4 @@
-package chat.controller
+package net.thechance.chat.controller
 
 import chat.dto.BaseResponse
 import chat.dto.ContactRequest
@@ -9,6 +9,7 @@ import net.thechance.chat.service.ContactService
 import net.thechance.identity.security.JwtFilter
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
+import java.util.UUID
 
 @RestController
 @RequestMapping("/contact")

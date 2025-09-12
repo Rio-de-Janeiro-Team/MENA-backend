@@ -1,5 +1,8 @@
 package chat.dto
 
+import org.springframework.http.HttpStatus
+import org.springframework.http.ResponseEntity
+
 data class BaseResponse<T>(
     val body: T? = null,
     val status: Int,
@@ -16,8 +19,9 @@ fun <T> baseResponse(
     return ResponseEntity.status(status).body(
         BaseResponse(
             success = success,
-            data = data,
-            message = message
+            body = data,
+            message = message,
+            status = status.value()
         )
     )
 }

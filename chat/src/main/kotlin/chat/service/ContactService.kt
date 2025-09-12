@@ -4,6 +4,7 @@ import chat.dto.BaseResponse
 import chat.dto.ContactRequest
 import chat.mapper.toContactResponse
 import net.thechance.chat.dto.ContactResponse
+import net.thechance.chat.dto.PagedResponse
 import net.thechance.chat.entity.Contact
 import net.thechance.chat.mapper.toContact
 import net.thechance.chat.repository.ContactRepository
@@ -52,7 +53,7 @@ class ContactService(
             userRepository.save(testUser)
         }
     }
-    fun getPagedContacts(userId: UUID, pageNumber: Int, pageSize: Int): PagedResponse<ContactResponse>{
+    fun getPagedContacts(userId: UUID, pageNumber: Int, pageSize: Int): PagedResponse<ContactResponse> {
         val pageable = PageRequest.of(pageNumber, pageSize)
         val pagedData =  contactRepository.findAllByOwnerUserId(
             userId,
