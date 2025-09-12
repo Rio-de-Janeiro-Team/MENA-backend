@@ -1,19 +1,25 @@
 package net.thechance.chat.controller
 
-import chat.dto.BaseResponse
-import chat.dto.ContactRequest
-import chat.dto.baseResponse
+import net.thechance.chat.dto.BaseResponse
+import net.thechance.chat.dto.ContactRequest
+import net.thechance.chat.dto.baseResponse
 import net.thechance.chat.dto.ContactResponse
 import net.thechance.chat.dto.PagedResponse
 import net.thechance.chat.service.ContactService
 import net.thechance.identity.security.JwtFilter
+import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.RequestParam
+import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.http.ResponseEntity
-import org.springframework.web.bind.annotation.*
-import java.util.UUID
 
 @RestController
-@RequestMapping("/contact")
-class ContactController(private val contactService: ContactService) {
+@RequestMapping("/contacts")
+class ContactController(
+    private val contactService: ContactService
+) {
 
     @PostMapping("/sync")
     fun syncContacts(
