@@ -15,7 +15,9 @@ interface ContactRepository : JpaRepository<Contact, UUID> {
     fun findAllByOwnerUserAndPhoneNumberNotIn(ownerUser: User, phoneNumbers: Collection<String>): List<Contact>
 
     @Query(
-        "SELECT new net.thechance.chat.dto.ContactResponse(c.id, c.name, c.phoneNumber, null, " +
+        "SELECT new net.thechance.chat.dto.ContactResponse(" +
+                "c.id, c.name, c.phoneNumber, " +
+                "CASE WHEN u IS NOT NULL THEN 'https://picsum.photos/200' ELSE null END, " +
                 "CASE WHEN u IS NOT NULL THEN true ELSE false END) " +
                 "FROM Contact c " +
                 "LEFT JOIN User u ON u.phoneNumber = c.phoneNumber " +
