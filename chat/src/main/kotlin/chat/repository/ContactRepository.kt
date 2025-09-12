@@ -17,7 +17,8 @@ interface ContactRepository : JpaRepository<Contact, UUID> {
     @Query(
         "SELECT new net.thechance.chat.dto.ContactResponse(c.id, c.name, c.phoneNumber, null, " +
                 "CASE WHEN c IS NOT NULL THEN true ELSE false END) " +
-                "FROM Contact c RIGHT JOIN User u WHERE u.phoneNumber = c.phoneNumber AND c.ownerUser.id = :ownerUserId"
+                "FROM Contact c RIGHT JOIN User u " +
+                "WHERE u.phoneNumber = c.phoneNumber AND c.ownerUser.id = :ownerUserId"
     ) //TODO: will be changed later with another table
     fun findAllContactResponsesByOwnerUserId(
         @Param("ownerUserId") ownerUserId: UUID,
