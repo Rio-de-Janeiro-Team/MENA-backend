@@ -1,7 +1,4 @@
-package chat.dto
-
-import org.springframework.http.HttpStatus
-import org.springframework.http.ResponseEntity
+package net.thechance.chat.dto
 
 data class BaseResponse<T>(
     val body: T? = null,
@@ -9,19 +6,3 @@ data class BaseResponse<T>(
     val success: Boolean,
     val message: String? = null
 )
-
-fun <T> baseResponse(
-    data: T? = null,
-    success: Boolean,
-    status: HttpStatus = HttpStatus.OK,
-    message: String? = null
-): ResponseEntity<BaseResponse<T>> {
-    return ResponseEntity.status(status).body(
-        BaseResponse(
-            success = success,
-            body = data,
-            message = message,
-            status = status.value()
-        )
-    )
-}
