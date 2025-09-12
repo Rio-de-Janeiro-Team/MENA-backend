@@ -1,10 +1,8 @@
-package net.thechance.chat.dto
-
-import org.springframework.http.HttpStatus
-import org.springframework.http.ResponseEntity
+package chat.dto
 
 data class BaseResponse<T>(
-    val data: T? = null,
+    val body: T? = null,
+    val status: Int,
     val success: Boolean,
     val message: String? = null
 )
