@@ -1,6 +1,6 @@
 package net.thechance.chat.mapper
 
-import chat.dto.ContactRequest
+import net.thechance.chat.dto.ContactRequest
 import net.thechance.chat.entity.Contact
 import net.thechance.identity.entity.User
 

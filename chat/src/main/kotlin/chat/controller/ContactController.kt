@@ -1,11 +1,12 @@
 package net.thechance.chat.controller
 
-import chat.dto.BaseResponse
-import chat.dto.ContactRequest
+import net.thechance.chat.dto.BaseResponse
+import net.thechance.chat.dto.ContactRequest
 import net.thechance.chat.dto.ContactResponse
 import net.thechance.chat.dto.PagedResponse
 import net.thechance.chat.service.ContactService
 import net.thechance.identity.security.JwtFilter
+import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestParam
@@ -36,10 +37,13 @@ class ContactController(
         val userId = JwtFilter.getUserId()
 
         val data = contactService.getPagedContacts(userId = userId, pageNumber = pageNumber, pageSize = pageSize)
-        return BaseResponse(
-            data = data,
-            message = "fetch data successfully",
-            success = true,
+        return ResponseEntity.ok(
+            BaseResponse(
+                body = data,
+                status = HttpStatus.OK.value(),
+                success = true,
+                message = "Contacts fetched successfully",
+            )
         )
     }
 }
