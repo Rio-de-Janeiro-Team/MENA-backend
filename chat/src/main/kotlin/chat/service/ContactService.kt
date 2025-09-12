@@ -53,8 +53,13 @@ class ContactService(
     }
 
     fun getPagedContacts(userId: UUID, pageNumber: Int, pageSize: Int): PagedResponse<ContactResponse> {
-        val pageable = PageRequest.of(pageNumber, pageSize)
-        val pagedData = contactRepository.findAllContactResponsesByOwnerUserId(userId, pageable)
-        return pagedData.toPagedResponse()
+        return if (pageNumber <= 0|| pageSize <= 0) {
+            val allContacts = contactRepository.findAllContactResponsesByOwnerUserId(userId, null)
+            allContacts.toPagedResponse()
+        } else {
+            val pageable = PageRequest.of(pageNumber - 1, pageSize)
+            val pagedData = contactRepository.findAllContactResponsesByOwnerUserId(userId, pageable)
+            pagedData.toPagedResponse()
+        }
     }
 }

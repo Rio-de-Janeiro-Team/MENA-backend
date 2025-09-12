@@ -25,7 +25,7 @@ interface ContactRepository : JpaRepository<Contact, UUID> {
     ) //TODO: will be changed later with another table
     fun findAllContactResponsesByOwnerUserId(
         @Param("ownerUserId") ownerUserId: UUID,
-        pageable: Pageable
+        pageable: Pageable?
     ): Page<ContactResponse>
 
 }
