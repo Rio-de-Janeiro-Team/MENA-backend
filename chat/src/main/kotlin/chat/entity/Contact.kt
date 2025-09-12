@@ -1,4 +1,4 @@
-package chat.entity
+package net.thechance.chat.entity
 
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
@@ -22,5 +22,5 @@ data class Contact(
     @Column(nullable = false) val phoneNumber: String,
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "user_id", nullable = false)
-    val ownerUser: User
+    val ownerUser: User,
 )
