@@ -14,12 +14,10 @@ interface ContactRepository : JpaRepository<Contact, UUID> {
     fun findAllByOwnerUserAndPhoneNumberIn(ownerUser: User, phoneNumbers: List<String>): List<Contact>
     fun findAllByOwnerUserAndPhoneNumberNotIn(ownerUser: User, phoneNumbers: Collection<String>): List<Contact>
 
-    fun findAllByOwnerUserId(ownerUserId: UUID, pageable: Pageable): Page<Contact>
-
     @Query(
         "SELECT new net.thechance.chat.dto.ContactResponse(c.id, c.name, c.phoneNumber, null, " +
                 "CASE WHEN c IS NOT NULL THEN true ELSE false END) " +
-                "FROM Contact c RIGHT JOIN c.ownerUser u WHERE u.id = :ownerUserId"
+                "FROM Contact c RIGHT JOIN User u WHERE u.phoneNumber = c.phoneNumber AND c.ownerUser.id = :ownerUserId"
     ) //TODO: will be changed later with another table
     fun findAllContactResponsesByOwnerUserId(
         @Param("ownerUserId") ownerUserId: UUID,
