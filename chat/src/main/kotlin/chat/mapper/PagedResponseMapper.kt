@@ -1,6 +1,6 @@
 package net.thechance.mena.mapper
 
-import chat.dto.PagedResponse
+import net.thechance.chat.dto.PagedResponse
 import org.springframework.data.domain.Page
 import org.springframework.http.HttpStatus
 

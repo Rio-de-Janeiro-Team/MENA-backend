@@ -1,23 +1,26 @@
-package net.thechance.chat.controller
+package chat.controller
 
-import chat.dto.PagedResponse
-import net.thechance.chat.dto.BaseResponse
+import chat.dto.BaseResponse
+import chat.dto.ContactRequest
+import chat.dto.baseResponse
 import net.thechance.chat.dto.ContactResponse
-import net.thechance.chat.dto.baseResponse
+import net.thechance.chat.dto.PagedResponse
 import net.thechance.chat.service.ContactService
 import net.thechance.identity.security.JwtFilter
 import org.springframework.http.ResponseEntity
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RequestParam
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 
 @RestController
-@RequestMapping("/contacts")
-class ContactController(
-    private val contactService: ContactService,
-) {
+@RequestMapping("/contact")
+class ContactController(private val contactService: ContactService) {
 
+    @PostMapping("/sync")
+    fun syncContacts(
+        @RequestBody contacts: List<ContactRequest>
+    ): BaseResponse<Unit> {
+        val currentUser = contactService.getCurrentUser()
+        return contactService.syncContacts(currentUser, contacts)
+    }
     @GetMapping
     fun getPagedContact(
         @RequestParam pageNumber: Int = 1,

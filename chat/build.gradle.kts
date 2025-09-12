@@ -3,7 +3,7 @@ plugins {
     id("io.spring.dependency-management")
     kotlin("jvm")
     kotlin("plugin.spring")
-    kotlin("plugin.jpa") version "1.9.25"
+    kotlin("plugin.jpa")
 }
 
 dependencies {
