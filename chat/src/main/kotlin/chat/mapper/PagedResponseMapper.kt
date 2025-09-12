@@ -6,7 +6,7 @@ import org.springframework.data.domain.Page
 fun <T> Page<T>.toPagedResponse(): PagedResponse<T> {
     return PagedResponse(
         data = content,
-        pageNumber = number,
+        pageNumber = number + 1,
         pageSize = size,
         totalItems = totalElements,
         totalPages = totalPages

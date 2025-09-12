@@ -1,11 +1,15 @@
 package net.thechance.chat.service
 
-import chat.dto.BaseResponse
-import chat.dto.ContactRequest
+import net.thechance.chat.dto.BaseResponse
+import net.thechance.chat.dto.ContactRequest
+import net.thechance.chat.dto.ContactResponse
+import net.thechance.chat.dto.PagedResponse
 import net.thechance.chat.mapper.toContact
 import net.thechance.chat.repository.ContactRepository
 import net.thechance.identity.entity.User
 import net.thechance.identity.repository.UserRepository
+import net.thechance.mena.mapper.toPagedResponse
+import org.springframework.data.domain.PageRequest
 import org.springframework.http.HttpStatus
 import org.springframework.stereotype.Service
 import java.util.UUID
@@ -45,6 +49,17 @@ class ContactService(
                 password = "bilal",
             )
             userRepository.save(testUser)
+        }
+    }
+
+    fun getPagedContacts(userId: UUID, pageNumber: Int, pageSize: Int): PagedResponse<ContactResponse> {
+        return if (pageNumber <= 0|| pageSize <= 0) {
+            val allContacts = contactRepository.findAllContactResponsesByOwnerUserId(userId, null)
+            allContacts.toPagedResponse()
+        } else {
+            val pageable = PageRequest.of(pageNumber - 1, pageSize)
+            val pagedData = contactRepository.findAllContactResponsesByOwnerUserId(userId, pageable)
+            pagedData.toPagedResponse()
         }
     }
 }
