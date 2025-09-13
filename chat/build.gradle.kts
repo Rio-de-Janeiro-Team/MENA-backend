@@ -14,12 +14,6 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-rsocket")
     implementation("io.projectreactor.kotlin:reactor-kotlin-extensions")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor")
-    implementation("org.springframework.boot:spring-boot-starter-messaging")
-
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core")
-//    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactive")
-//    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-flow")
-
     implementation(projects.identity)
 }
