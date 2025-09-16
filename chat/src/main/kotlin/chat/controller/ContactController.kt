@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.http.ResponseEntity
+import java.util.UUID
 
 @RestController
 @RequestMapping("/contacts")
@@ -34,7 +35,7 @@ class ContactController(
         @RequestParam pageNumber: Int = 1,
         @RequestParam pageSize: Int = 20,
     ): ResponseEntity<BaseResponse<PagedResponse<ContactResponse>>> {
-        val userId = JwtFilter.getUserId()
+        val userId = UUID.fromString("7aa6f694-e5ec-4bca-a243-01cedf7f9ce4")
 
         val data = contactService.getPagedContacts(userId = userId, pageNumber = pageNumber, pageSize = pageSize)
         return ResponseEntity.ok(

@@ -1,4 +1,4 @@
-package net.thechance.chat.model
+package net.thechance.chat.entity
 
 import java.time.Instant
 import java.util.UUID

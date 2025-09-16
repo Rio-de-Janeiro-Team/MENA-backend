@@ -1,10 +1,11 @@
 package net.thechance.chat.service
 
-import net.thechance.chat.model.Message
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
+import net.thechance.chat.entity.Message
+import org.springframework.stereotype.Service
 
+@Service
 class MessageService {
     private val messages = mutableListOf<Message>()
     private val messageFlow = MutableSharedFlow<Message>(replay = 100)
@@ -14,7 +15,6 @@ class MessageService {
         messageFlow.emit(message)
     }
 
-    fun streamMessages(): Flow<Message> =
-        messageFlow.asSharedFlow()
+    fun streamMessages() = messageFlow.asSharedFlow()
 }
 
