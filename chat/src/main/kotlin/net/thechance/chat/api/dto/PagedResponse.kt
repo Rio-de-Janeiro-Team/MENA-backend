@@ -1,4 +1,4 @@
-package net.thechance.chat.dto
+package net.thechance.chat.api.dto
 
 data class PagedResponse<T>(
     val data: List<T>,

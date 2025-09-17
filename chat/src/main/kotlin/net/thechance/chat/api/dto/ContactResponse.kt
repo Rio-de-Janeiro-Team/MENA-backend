@@ -1,10 +1,11 @@
-package net.thechance.chat.dto
+package net.thechance.chat.api.dto
 
 import java.util.UUID
 
 data class ContactResponse(
     val id: UUID,
-    val name: String,
+    val firstName: String,
+    val lastName: String,
     val phoneNumber: String,
     val imageUrl: String? = null,
     val isMenaMember: Boolean

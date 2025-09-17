@@ -1,6 +1,6 @@
 package net.thechance.mena.mapper
 
-import net.thechance.chat.dto.PagedResponse
+import net.thechance.chat.api.dto.PagedResponse
 import org.springframework.data.domain.Page
 
 fun <T> Page<T>.toPagedResponse(): PagedResponse<T> {
