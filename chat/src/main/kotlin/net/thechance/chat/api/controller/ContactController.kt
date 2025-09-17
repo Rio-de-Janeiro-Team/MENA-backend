@@ -22,14 +22,14 @@ class ContactController(
     fun syncContacts(
         @RequestBody contacts: List<ContactRequest>
     ): ResponseEntity<String> {
-        val currentUser = contactService.getCurrentUser().id
+        val currentUser = contactService.getCurrentUserId()
         contactService.syncContacts(currentUser, contacts)
         return ResponseEntity.ok("Contacts synced successfully")
     }
 
     @GetMapping
     fun getPagedContact(pageable: Pageable): ResponseEntity<PagedResponse<ContactResponse>> {
-        val userId = contactService.getCurrentUser().id
+        val userId = contactService.getCurrentUserId()
         val response = contactService.getPagedContacts(userId = userId, pageable = pageable)
         return ResponseEntity.ok(response)
     }

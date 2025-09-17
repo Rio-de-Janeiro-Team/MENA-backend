@@ -38,17 +38,8 @@ class ContactService(
     }
 
 
-    fun getCurrentUser(): User { // todo: delete it when identity feature team provide another one
-        val userId = UUID.fromString("49a905c3-15bb-4eaa-a241-252c5ce0be08")
-
-        return userRepository.findById(userId).orElseGet {
-            val testUser = User(
-                id = userId,
-                phoneNumber = "0598202206",
-                password = "bilal",
-            )
-            userRepository.save(testUser)
-        }
+    fun getCurrentUserId(): UUID { // todo: delete it when identity feature team provide another one
+        return UUID.fromString("49a905c3-15bb-4eaa-a241-252c5ce0be08")
     }
 
     fun getPagedContacts(userId: UUID, pageable: Pageable): PagedResponse<ContactResponse> {
