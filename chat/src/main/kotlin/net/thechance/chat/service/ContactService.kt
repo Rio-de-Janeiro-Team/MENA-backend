@@ -1,7 +1,5 @@
 package net.thechance.chat.service
 
-import chat.service.ContactModel
-import chat.service.toModel
 import net.thechance.chat.entity.Contact
 import net.thechance.chat.repository.ContactRepository
 import org.springframework.data.domain.Page
@@ -17,11 +15,11 @@ class ContactService(
 ) {
     fun getPagedContactByUserId(userId: UUID, pageable: Pageable): Page<ContactModel> {
         val pagedData = if (pageable.pageNumber <= 0 || pageable.pageSize <= 0) {
-            contactRepository.findAllByOwnerId(userId, Pageable.unpaged(Sort.by("firstName").ascending()))
+            contactRepository.findAllByContactOwnerId(userId, Pageable.unpaged(Sort.by("firstName").ascending()))
         } else {
             val sortedPageable =
                 PageRequest.of(pageable.pageNumber - 1, pageable.pageSize, Sort.by("firstName").ascending())
-            contactRepository.findAllByOwnerId(userId, sortedPageable)
+            contactRepository.findAllByContactOwnerId(userId, sortedPageable)
         }
         return pagedData.map { it.toModel(isMenaUser = false, imageUrl = "https://picsum.photos/200") }
     }

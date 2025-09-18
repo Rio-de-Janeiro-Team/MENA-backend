@@ -1,4 +1,4 @@
-package chat.service
+package net.thechance.chat.service
 
 import net.thechance.chat.api.dto.ContactResponse
 import net.thechance.chat.entity.Contact
@@ -9,7 +9,6 @@ data class ContactModel(
     val firstName: String,
     val lastName: String,
     val phoneNumber: String,
-    val userId: UUID,
     val isMenaUser: Boolean,
     val imageUrl: String
 )
@@ -20,11 +19,11 @@ fun Contact.toModel(isMenaUser: Boolean, imageUrl: String): ContactModel{
         firstName = this.firstName,
         lastName = this.lastName,
         phoneNumber = this.phoneNumber,
-        userId = this.userId,
         isMenaUser = isMenaUser,
         imageUrl = imageUrl
     )
 }
+
 fun ContactModel.toResponse() : ContactResponse{
     return ContactResponse(
         id = this.id,

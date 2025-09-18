@@ -19,12 +19,12 @@ class SecurityConfig(
     fun filterChain(http: HttpSecurity): SecurityFilterChain {
         http
             .csrf { it.disable() }
-            .authorizeHttpRequests {
-                it.requestMatchers("/identity/**").permitAll()
-                it.anyRequest().authenticated()
-            }
+//            .authorizeHttpRequests {
+//                it.requestMatchers("/identity/**").permitAll()
+//                it.anyRequest().authenticated()
+//            }
             .sessionManagement { it.sessionCreationPolicy(SessionCreationPolicy.STATELESS) }
-            .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter::class.java)
+//            .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter::class.java)
 
         return http.build()
     }

@@ -1,7 +1,7 @@
 package net.thechance.chat.api.dto
 
-import chat.service.ContactModel
-import chat.service.toResponse
+import net.thechance.chat.service.ContactModel
+import net.thechance.chat.service.toResponse
 import org.springframework.data.domain.Page
 
 
@@ -16,7 +16,7 @@ data class PagedResponse<T>(
 fun Page<ContactModel>.toResponse(): PagedResponse<ContactResponse>{
     return PagedResponse(
         data = this.content.map { it.toResponse() },
-        pageNumber = this.number +1,
+        pageNumber = this.number + 1,
         pageSize = this.size,
         totalItems = this.totalElements,
         totalPages = this.totalPages
