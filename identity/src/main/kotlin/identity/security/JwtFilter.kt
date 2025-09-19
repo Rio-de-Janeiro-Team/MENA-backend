@@ -5,7 +5,7 @@ import io.jsonwebtoken.MalformedJwtException
 import jakarta.servlet.FilterChain
 import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse
-import net.thechance.identity.security.handler.AuthErrorResponder
+//import net.thechance.identity.security.handler.AuthErrorResponder
 import net.thechance.identity.service.UserService
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.core.context.SecurityContextHolder
@@ -18,7 +18,7 @@ import java.util.*
 class JwtFilter(
     private val jwtService: JwtService,
     private val userService: UserService,
-    private val authErrorResponder: AuthErrorResponder
+//    private val authErrorResponder: AuthErrorResponder
 ) : OncePerRequestFilter() {
 
     override fun doFilterInternal(
@@ -45,11 +45,11 @@ class JwtFilter(
 
             filterChain.doFilter(request, response)
         } catch (_: ExpiredJwtException) {
-            authErrorResponder.handleJwtExpired(response)
+//            authErrorResponder.handleJwtExpired(response)
         } catch (_: MalformedJwtException) {
-            authErrorResponder.handleInvalidToken(response)
+//            authErrorResponder.handleInvalidToken(response)
         } catch (_: Exception) {
-            authErrorResponder.handleGeneralAuthError(response)
+//            authErrorResponder.handleGeneralAuthError(response)
         }
     }
 

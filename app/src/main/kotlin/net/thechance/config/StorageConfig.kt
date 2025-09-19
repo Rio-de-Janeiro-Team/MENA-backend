@@ -24,18 +24,18 @@ class StorageConfig(
     private val properties: StorageProperties,
 ) {
 
-    @Bean
-    fun s3Client(
-        storageCredentialsProvider: StaticCredentialsProvider,
-        storageConfiguration: S3Configuration,
-    ): S3Client {
-        return S3Client.builder()
-            .region(Region.US_EAST_1) // The region is required by AWS SDK, but DigitalOcean Spaces ignores it
-            .credentialsProvider(storageCredentialsProvider)
-            .endpointOverride(URI.create(properties.endpoint))
-            .serviceConfiguration(storageConfiguration)
-            .build()
-    }
+//    @Bean
+//    fun s3Client(
+//        storageCredentialsProvider: StaticCredentialsProvider,
+//        storageConfiguration: S3Configuration,
+//    ): S3Client {
+//        return S3Client.builder()
+//            .region(Region.US_EAST_1) // The region is required by AWS SDK, but DigitalOcean Spaces ignores it
+//            .credentialsProvider(storageCredentialsProvider)
+//            .endpointOverride(URI.create(properties.endpoint))
+//            .serviceConfiguration(storageConfiguration)
+//            .build()
+//    }
 
     @Bean
     fun storageCredentialsProvider(): StaticCredentialsProvider {

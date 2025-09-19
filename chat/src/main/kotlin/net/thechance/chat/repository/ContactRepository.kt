@@ -10,7 +10,6 @@ import org.springframework.data.repository.query.Param
 import java.util.UUID
 
 interface ContactRepository: JpaRepository<Contact, UUID>{
-    fun findAllByContactOwnerId(userId: UUID, pageable: Pageable): Page<Contact>
     fun findAllByContactOwnerIdAndPhoneNumberIn(contactOwnerId: UUID, phoneNumbers: List<String>): List<Contact>
     fun deleteAllByContactOwnerIdAndPhoneNumberNotIn(contactOwnerId: UUID, requestedPhoneNumbers: List<String>)
 
