@@ -1,0 +1,10 @@
+databaseChangeLog:
+  - changeSet:
+      id: 6-chat
+      author: Joseph-Sameh-0
+      comment: Migrate contacts table to match Kotlin entity
+      changes:
+        - sql:
+            sql:
+              ALTER TABLE chat.contacts
+              RENAME COLUMN owner_user_id TO contact_owner_id;
