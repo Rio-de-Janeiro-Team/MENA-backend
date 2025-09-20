@@ -7,13 +7,13 @@ import jakarta.persistence.Table
 import java.util.UUID
 
 @Entity
-@Table(name = "users")
+@Table(name = "users", schema = "identity")
 data class User(
     @Id
     @Column(columnDefinition = "uuid", updatable = false, nullable = false)
     val id: UUID = UUID.randomUUID(),
-    @Column(nullable = false)
+    @Column(name = "phone_number", nullable = false)
     val phoneNumber: String,
-    @Column(nullable = false)
+    @Column(name = "password", nullable = false)
     val password: String,
 )
