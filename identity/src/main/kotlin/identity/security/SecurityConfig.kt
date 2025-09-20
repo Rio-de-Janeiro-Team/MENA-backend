@@ -11,7 +11,7 @@ import org.springframework.security.web.SecurityFilterChain
 @Configuration
 @EnableWebSecurity
 class SecurityConfig(
-//    private val jwtFilter: JwtFilter,
+    private val jwtFilter: JwtFilter,
 ) {
 
     @Bean
@@ -20,10 +20,10 @@ class SecurityConfig(
             .csrf { it.disable() }
             .authorizeHttpRequests {
                 it.requestMatchers("/identity/**", "/contacts/**", "/**/messages/**").permitAll()
-//                it.anyRequest().authenticated()
+                it.anyRequest().authenticated()
             }
             .sessionManagement { it.sessionCreationPolicy(SessionCreationPolicy.STATELESS) }
-//            .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter::class.java)
+            .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter::class.java)
 
         return http.build()
     }
