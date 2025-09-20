@@ -45,11 +45,12 @@ class ContactService(
         val contactsToSave = uniqueContactRequests.map { request ->
             existingContactsMap[request.phoneNumber]?.copy(
                 firstName = request.firstName,
-                lastName = request.lastName
+                lastName = request.lastName,
+                contactOwnerId = userId
             ) ?: request
         }
 
-        contactRepository.deleteAllByContactOwnerIdAndPhoneNumberNotIn(userId, requestedPhoneNumbers)
+        contactRepository.deleteAllByContactOwnerId(userId)
         contactRepository.saveAll(contactsToSave)
     }
 }

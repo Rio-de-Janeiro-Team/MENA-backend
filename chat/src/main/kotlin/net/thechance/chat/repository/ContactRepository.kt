@@ -13,6 +13,8 @@ interface ContactRepository: JpaRepository<Contact, UUID>{
     fun findAllByContactOwnerIdAndPhoneNumberIn(contactOwnerId: UUID, phoneNumbers: List<String>): List<Contact>
     fun deleteAllByContactOwnerIdAndPhoneNumberNotIn(contactOwnerId: UUID, requestedPhoneNumbers: List<String>)
 
+    fun deleteAllByContactOwnerId(ownerId: UUID)
+
     @Query(
         "SELECT new net.thechance.chat.service.model.ContactModel(" +
                 "c.id, " +
